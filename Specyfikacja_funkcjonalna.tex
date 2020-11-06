@@ -1,9 +1,10 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 
 % Formatting
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
+\usepackage{parskip}
 
 % Title content
 \title{Algorytmy i struktury danych
@@ -16,39 +17,91 @@
 
 \maketitle
 
+% Wstęp
+\section{Wprowadzenie}
+Niniejszy dokumnet stanowi specyfikację funkcjonalną programu \emph{CostOptimizer}. Zadaniem programu jest znalezienie dla każdej apteki takich producentów oraz ilości dostarczonych przez nich szczepionek, aby zaspokoić dzienne zapotrzboeanie apteki i zminimalziować koszt całkowity. Przez koszt całkowity rozumie się sumę kosztów tranzakcji wszystkich aptek. 
 % Wymagania dla pliku wejściowego
 \section{Wymagania dla pliku wejściowego}
 Przykładowy plik wczytywany przez program powinien wyglądać następująco:\\*\\*
-\begin{tabular}{l}
-\# Producenci szczepionek (id \textbar\space nazwa \textbar\space dzienna produkcja)\\
-0 \textbar\space BioTech 2.0 \textbar\space 900\\
-1 \textbar\space Eko Polska 2020 \textbar\space 1300\\
-2 \textbar\space Post-Covid Sp. z o.o. \textbar\space 1100\\
-\# Apteki (id \textbar\space{} nazwa \textbar\space{} dzienne zapotrzebowanie)\\
-0 \textbar\space CentMedEko Centrala \textbar\space 450\\
-1 \textbar\space CentMedEko 24h \textbar\space 690\\
-2 \textbar\space CentMedEko Nowogrodzka \textbar\space 1200\\
-\# Połączenia producentów i aptek (id producenta \textbar\space id apteki \textbar\space dzienna maksymalna\\ liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł] )\\
-0 \textbar\space 0 \textbar\space 800 \textbar\space 70.5\\
-0 \textbar\space 1 \textbar\space 600 \textbar\space 70\\
-0 \textbar\space 2 \textbar\space 750 \textbar\space 90.99\\
-1 \textbar\space 0 \textbar\space 900 \textbar\space 100\\
-1 \textbar\space 1 \textbar\space 600 \textbar\space 80\\
-1 \textbar\space 2 \textbar\space 450 \textbar\space 70\\
-2 \textbar\space 0 \textbar\space 900 \textbar\space 80\\
-2 \textbar\space 1 \textbar\space 900 \textbar\space 90\\
-2 \textbar\space 2 \textbar\space 300 \textbar\space 100\\*\\*
-\end{tabular}\\
+\framebox{%
+  \begin{minipage}{0.98\linewidth}
+    \# Producenci szczepionek (id \textbar\space nazwa \textbar\space dzienna produkcja)\\
+    0 \textbar\space BioTech 2.0 \textbar\space 900\\
+    1 \textbar\space Eko Polska 2020 \textbar\space 1300\\
+    2 \textbar\space Post-Covid Sp. z o.o. \textbar\space 1100\\
+    \# Apteki (id \textbar\space{} nazwa \textbar\space{} dzienne zapotrzebowanie)\\
+    0 \textbar\space CentMedEko Centrala \textbar\space 450\\
+    1 \textbar\space CentMedEko 24h \textbar\space 690\\
+    2 \textbar\space CentMedEko Nowogrodzka \textbar\space 1200\\
+    \# Połączenia producentów i aptek (id producenta \textbar\space id apteki \textbar\space dzienna maksymalna liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł] )\\
+    0 \textbar\space 0 \textbar\space 800 \textbar\space 70.5\\
+    0 \textbar\space 1 \textbar\space 600 \textbar\space 70\\
+    0 \textbar\space 2 \textbar\space 750 \textbar\space 90.99\\
+    1 \textbar\space 0 \textbar\space 900 \textbar\space 100\\
+    1 \textbar\space 1 \textbar\space 600 \textbar\space 80\\
+    1 \textbar\space 2 \textbar\space 450 \textbar\space 70\\
+    2 \textbar\space 0 \textbar\space 900 \textbar\space 80\\
+    2 \textbar\space 1 \textbar\space 900 \textbar\space 90\\
+    2 \textbar\space 2 \textbar\space 300 \textbar\space 100
+  \end{minipage}}
+
+\vspace{2em}
 Wymagania dla pliku wczytywnaego przez program:
 \begin{enumerate}
-    \item Plik wejściowey musi posiadać trzy sekcje w następującej kolejności: \emph{producenci szczepionek, apteki, połączenia producentów i aptek}.
+    \item Plik wejściowy musi nazywać się "data" i mieć rozszerzenie (*.txt).
+    \item Plik wejściowy musi posiadać trzy sekcje w następującej kolejności: \emph{producenci szczepionek, apteki, połączenia producentów i aptek}.
     \item Każda sekcja musi rozpoczynać się od znaku '\#'. Po tym znaku w tym samym wierszu sekcja może (ale nie musi) posiadać swoją nazwę oraz nazwy danych, które zawiera każdy następny wiersz tej sekcji. Po tytule sekcji ("\#...") konieczne jest przejście do nowej lini (znak nowej linii).
     \item Sekcja pierwsza - producenci szczepionek po wierszu tytułowym ("\#...") w kolejnych wierszach musi zawierać dane dotyczące kolejnych producentów. Dane producentów muszą być odzielone znakiem nowej lini (każdy producent to nowy wiersz). Dane każdego producenta muszą być podane w następującej kolejności: \emph{id \textbar\space nazwa \textbar\space dzienna produkcja}. W każdym wierszu po każdej danej musi wystąpić znak strumienia '\textbar' za wyjątkiem ostatniej danej w wierszu - \emph{dzienna produkcja}. Dana \emph{id} oznacza numer identyfikacyjny producenta i musi być liczbą całkowitą. Każdy producent musi mieć unikalne \emph{id} (dwóch producentów nie może mieć takiego samego \emph{id}). \emph{Nazwa} producenta może zawierać wszystkie znaki oprócz znaku strumienia '\textbar'. \emph{Dzienna produkcja} jaką osiąga dany producent musi być liczbą całkowitą.
     \item Sekcja druga - \emph{apteki} po wierszu tytułowym ("\#...") w kolejnych wierszach musi zawierać dane dotyczące kolejnych aptek. Dane aptek muszą być odzielone znakiem nowej lini (każda apteka to nowy wiersz). Dane każdej apteki muszą być podane w następującej kolejności: \emph{id \textbar\space nazwa \textbar\space dzienne zapotrzebowanie}. W każdym wierszu po każdej danej musi wystąpić znak strumienia '\textbar' za wyjątkiem ostatniej danej w wierszu - \emph{dzienne zapotrzebowanie}. Dana \emph{id} oznacza numer identyfikacyjny apteki i musi być liczbą całkowitą. Każda apteka musi mieć unikalne \emph{id} (dwie apteki nie mogą mieć takiego samego \emph{id}). \emph{Nazwa} apteki może zawierać wszystkie znaki oprócz znaku strumienia '\textbar'. \emph{Dzienne zapotrzebowanie} danej apteki musi być liczbą całkowitą.
-    \item Sekcja trzecia - \emph{połączenia producentów i aptek} po wierszu tytułowym ("\#...") w kolejnych wierszach musi zawierać dane dotyczące kolejnych umów między danym producentem, a daną apteką. Dane połączeń muszą być odzielone znakiem nowej lini (każde połączenie to nowy wiersz). Sekcja ta musi zawierać połączenia (umowy) każdego producenta z każdą apteką. Dane każdej umowy muszą być podane w następującej kolejności: \emph{id producenta \textbar\space id apteki \textbar\space dzienna maksymalna liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł]}. W każdym wierszu po każdej danej musi wystąpić znak strumienia ‘\textbar’ za wyjątkiem ostatniej danej w wierszu - \emph{koszt szczepionki [zł]}.  Dane \emph{id producenta} oraz \emph{id apteki} to odpowiednio numer identyfikacyjny producenta i apteki z wcześniej omawianych sekcji, a więc dane te muszą spełniać wymagania wyszczególnione w tych sekcjach oraz mogą przyjmować tylko takie wartości jakie zostały w tych sekcjach wymienione (nie może być umowy między niezdefiniowaną wcześniej apteką czy prducentem). \emph{Dzienna maksymalna liczba dostarczanych szczepionek} wynikająca z umowy musi być liczbą całkowitą. \emph{Koszt szczepionki [zł]} po jakiej dany producent sprzedaje szczepionkę danej aptece może być liczbą zmiennoprzecinkową. Koszt ten musi być podany w złotych [zł].
+    \item Sekcja trzecia - \emph{połączenia producentów i aptek} po wierszu tytułowym ("\#...") w kolejnych wierszach musi zawierać dane dotyczące kolejnych umów między danym producentem a daną apteką. Dane połączeń muszą być odzielone znakiem nowej lini (każde połączenie to nowy wiersz). Sekcja ta musi zawierać połączenia (umowy) każdego producenta z każdą apteką. Każde takie połączenie musi być unikalne (nie może powtórzyć się połączenie tego samego producenta z tą samą apteką). Dane każdej umowy muszą być podane w następującej kolejności: \emph{id producenta \textbar\space id apteki \textbar\space dzienna maksymalna liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł]}. W każdym wierszu po każdej danej musi wystąpić znak strumienia ‘\textbar’ za wyjątkiem ostatniej danej w wierszu - \emph{koszt szczepionki [zł]}.  Dane \emph{id producenta} oraz \emph{id apteki} to odpowiednio numer identyfikacyjny producenta i apteki z wcześniej omawianych sekcji, a więc dane te muszą spełniać wymagania wyszczególnione w tych sekcjach oraz mogą przyjmować tylko takie wartości jakie zostały w tych sekcjach wymienione (nie może być umowy między niezdefiniowaną wcześniej apteką czy prducentem). \emph{Dzienna maksymalna liczba dostarczanych szczepionek} wynikająca z umowy musi być liczbą całkowitą. \emph{Koszt szczepionki [zł]} po jakiej dany producent sprzedaje szczepionkę danej aptece może być liczbą zmiennoprzecinkową. Koszt ten musi być podany w złotych [zł].
 \end{enumerate}
 % Instrukcja korzystania z programu
 \section{Instrukcja korzystania z programu}
+W celu użycia programu należy postępować według poniżych kroków:
+\begin{enumerate}
+    \item Proszę upewnić się, czy na komputerze zainstalowane jest JRE (ang. Java Runtime Environment) - środowisko uruchomieniowe Javy. W tym celu należy otworzyć wiersz poleceń (terminal) i wywołać następującą komendę:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        java -version
+        \end{minipage}}
+    
+    \vspace{1em}
+    Jeśli pojawi się informacja o wersji JRE, to oznacza, że środowisko jest zainstalowane. Jeśli taka informacja się nie pojawi, wówczas konienczna jest instalacja JRE.
+    \item Proszę przenieść programu \emph{CostOptimizer.jar} oraz plik wejściowy \emph{data.txt} do wybranej przez siebie lokalizacji (folderu). 
+    \item Proszę otworzyć terminal w miejscu, gdzie znajduje się program i plik wejściowy. Można też otworzyć terminal w dowolnym miejscu i zmienić bieżącą lokalizację na lokalizację programu i pliku wejściowego za pomocą polecenia "cd \textless sciezka\_do\_pliku\textgreater", a więc np.:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        cd C:\textbackslash Katalog programu
+        \end{minipage}}
+    
+    \vspace{1em}
+    \item Proszę uruchomić program za pomocą poniżeszj komendy w terminalu:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        java -jar CostOptimizer.jar data.txt
+        \end{minipage}}
+    
+    \vspace{1em}
+    \item Jeśli plik wejściowy spełnia wszystkie wymagania opsiane w rozdziale 2, to programu zwróci plik \emph{optimized.txt}. Plik ten zostanie zapisany w miejscu, gdzie znajduje się program i plik wejściowy. Zawartość pliku wyjściowego jest pokazana i omówiona w rodziale 4.
+\end{enumerate}
 % Wynik działania programu (plik wyjściowy)
 \section{Wynik działania programu (plik wyjściowy)}
+Przykładowy plik wyjściowy powinien wygląd następująco:\\*\\*
+\framebox{%
+  \begin{minipage}{0.98\linewidth}
+    BioTech 2.0\hspace{2em} -\textgreater\space CentMedEko Centrala [Koszt = 300 * 70.5 = 21150 zł]\\
+    Eko Polska 2020 -\textgreater\space CentMedEko Centrala [Koszt = 150 * 100 = 15000 zł]\\
+    Opłaty całkowite: 36150 zł
+  \end{minipage}}
+
+\vspace{1em}
+Plik wyjściowy ma następująco strukturę:
+\begin{enumerate}
+    \item W kolejnych wierszach za wyjątkiem ostatniego wiersza zawarte są dane, dotyczące kolejnych połączeń producent-apteka, które zapewniają najmniejszy możliwy koszt całkowity. Każde połączenie (tranzakcja) między producentem a apteką kończy się znakiem nowej lini. Każde połączenie jest unikalne (w pliku nie wystąpi więcej niż jedno połączenie dotyczące tego samego producenta i tej samej apteki). Każda apteka może łączyć się z więcej niż jednym producentem, ale nie musi łączyć się z każdym. Nie wszyscy producenci z pliku wejściowego muszą pojawić się w pliku wyjściowym (tranzkacje z niektórymi producentami mogą być nieopłacalne).
+    \item Ostatni wiersz pliku wyjściowego zawiera inforamację o wysokości całkowitego kosztu, jaki zapewniają (minimalizują) połączenia podane w wierszach poprzedzających. 
+    \item Każdy wiersz będący połączeniem zawiera dane w następującej postaci, zachowując podaną kolejność: \emph{nazwa producenta -\textgreater\space nazwa apteki} [Koszt = \emph{ilość szczepionek kupionych od danego producenta*koszt pojedynczej szczepionki = koszt tranzakcji} zł]. \emph{Ilość szczepionek kupionych od danego producenta} jest liczbą całkowitą. \emph{Koszt pojedynczej szczepionki} oraz \emph{koszt tranzakcji} są liczbami zmiennoprzecinkowymi.
+    \item Ostatni wiersz ma postać: Opłaty całkowite: \emph{koszt całkowity} zł
+\end{enumerate}
+% Nieprawdiłowe korzystanie z programu
+\section{Nieprawidłowe wywołanie programu}
 \end{document}
