@@ -1,6 +1,7 @@
 \documentclass{article}
 
 % Formatting
+\usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage[titletoc,title]{appendix}
@@ -10,7 +11,7 @@
 \\Projekt indywidualny\\
 \bigbreak
 Specyfikacja funkcjonalna}
-\author{Kacper Baczyński}
+\author{Kacper Baczyński, 276409}
 \date{Warszawa, 2020}
 
 \begin{document}
@@ -19,32 +20,34 @@ Specyfikacja funkcjonalna}
 
 % Wymagania dla pliku wejściowego
 \section{Wymagania dla pliku wejściowego}
-Przykładowy plik wczytywany przez program powinien wyglądać następująco:\\\\
-# Producenci szczepionek (id \textbar\vspace{} nazwa \textbar\vspace{} dzienna produkcja)\\
-0 \textbar\vspace{} BioTech 2.0 \textbar\vspace{} 900\\
-1 \textbar\vspace{} Eko Polska 2020 \textbar\vspace{} 1300\\
-2 \textbar\vspace{} Post-Covid Sp. z o.o. \textbar\vspace{} 1100\\
-# Apteki (id \textbar\vspace{} nazwa \textbar\vspace{} dzienne zapotrzebowanie)\\
-0 \textbar\vspace{} CentMedEko Centrala \textbar\vspace{} 450\\
-1 \textbar\vspace{} CentMedEko 24h \textbar\vspace{} 690\\
-2 \textbar\vspace{} CentMedEko Nowogrodzka \textbar\vspace{} 1200\\
-# Połączenia producentów i aptek (id producenta \textbar\vspace{} id apteki \textbar\vspace{} dzienna maksymalna liczba dostarczanych szczepionek \textbar\vspace{} koszt szczepionki [zł] )\\
-0 \textbar\vspace{} 0 \textbar\vspace{} 800 \textbar\vspace{} 70.5\\
-0 \textbar\vspace{} 1 \textbar\vspace{} 600 \textbar\vspace{} 70\\
-0 \textbar\vspace{} 2 \textbar\vspace{} 750 \textbar\vspace{} 90.99\\
-1 \textbar\vspace{} 0 \textbar\vspace{} 900 \textbar\vspace{} 100\\
-1 \textbar\vspace{} 1 \textbar\vspace{} 600 \textbar\vspace{} 80\\
-1 \textbar\vspace{} 2 \textbar\vspace{} 450 \textbar\vspace{} 70\\
-2 \textbar\vspace{} 0 \textbar\vspace{} 900 \textbar\vspace{} 80\\
-2 \textbar\vspace{} 1 \textbar\vspace{} 900 \textbar\vspace{} 90\\
-2 \textbar\vspace{} 2 \textbar\vspace{} 300 \textbar\vspace{} 100\\
-
-Plik wczytywany przez program powinien:\\
-1.	Posiadać trzy sekcje w następującej kolejności: producenci szczepionek, apteki, połączenia producentów i aptek.\\
-2.	Każda sekcja powinna zawierać tytuł (może być pusty). Tytuł każdej sekcji musi rozpoczynać się od znaku ‘#’. Po tym znaku sekcja może posiadać swoją nazwę oraz uwzględniać w nawiasie podane dane w tej sekcji (ale nie musi – tytuł pusty).\\
-3.	Sekcja pierwsza - producenci szczepionek w kolejnych wierszach musi zawierać dane dotyczące kolejnych producentów. Dane każdego producenta muszą być podane w następującej kolejności: id | nazwa | dzienna produkcja. Środkowa dana, czyli nazwa producenta musi być oddzielona od pozostałych danych znakiem strumienia „|”. Dana id oznacza numer identyfikacyjny producenta i musi być liczbą całkowitą. Każdy producent musi mieć unikalne id (dwóch producentów nie może mieć takiego samego id). Nazwa producenta może zawierać wszystkie znaki oprócz znaku strumienia „|”. Dzienna produkcja na jaką osiąga dany producent musi być liczbą całkowitą.\\
-4.	Sekcja druga - apteki w kolejnych wierszach musi zawierać dane dotyczące kolejnych aptek. Dane każdej apteki muszą być podane w następującej kolejności: id | nazwa | dzienne zapotrzebowanie. Środkowa dana, czyli nazwa apteki musi być oddzielona od pozostałych danych znakiem strumienia „|”. Dana id oznacza numer identyfikacyjny apteki i musi być liczbą całkowitą. Ponadto każdy producent musi mieć unikalne id (dwóch producentów nie może mieć takiego samego id). Nazwa apteki może zawierać wszystkie znaki oprócz znaku strumienia „|”. Dzienne zapotrzebowanie danej apteki musi być liczbą całkowitą.\\
-5.	Sekcja trzecia - połączenia producentów i aptek w kolejnych wierszach musi zawierać dane dotyczące umowy między danym producentem, a daną apteką. Sekcja ta musi zawierać połączenia (umowy) każdego producenta z każdą apteką. Każdego takie połączenie (wiersz) musi być opisane przez dane w następującej kolejności: id producenta | id apteki | dzienna maksymalna liczba dostarczanych szczepionek | koszt szczepionki [zł]. W każdym wierszu po każdej danej musi wystąpić znak strumienia „|” za wyjątkiem ostatniej danej w wierszu – koszt szczepionki [zł].  Dana „id producenta” oraz „id apteki” oznaczają odpowiednio numer identyfikacyjny producenta i apteki. Obie te dane muszą być liczbą całkowitą. „|”. Dzienna maksymalna liczba dostarczanych szczepionek wynikająca z umowy musi być liczbą całkowitą. Koszt szczepionki po jakiej dany producent sprzedanej szczepionkę danej aptece może być liczbą zmiennoprzecinkową. Koszt ten musi być podany w złotych [zł].\\
-
+Przykładowy plik wczytywany przez program powinien wyglądać następująco:\\*\\*
+\begin{tabular}{l}
+\# Producenci szczepionek (id \textbar\space nazwa \textbar\space dzienna produkcja)\\
+0 \textbar\space BioTech 2.0 \textbar\space 900\\
+1 \textbar\space Eko Polska 2020 \textbar\space 1300\\
+2 \textbar\space Post-Covid Sp. z o.o. \textbar\space 1100\\
+\# Apteki (id \textbar\space{} nazwa \textbar\space{} dzienne zapotrzebowanie)\\
+0 \textbar\space CentMedEko Centrala \textbar\space 450\\
+1 \textbar\space CentMedEko 24h \textbar\space 690\\
+2 \textbar\space CentMedEko Nowogrodzka \textbar\space 1200\\
+\# Połączenia producentów i aptek (id producenta \textbar\space id apteki \textbar\space dzienna maksymalna\\ liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł] )\\
+0 \textbar\space 0 \textbar\space 800 \textbar\space 70.5\\
+0 \textbar\space 1 \textbar\space 600 \textbar\space 70\\
+0 \textbar\space 2 \textbar\space 750 \textbar\space 90.99\\
+1 \textbar\space 0 \textbar\space 900 \textbar\space 100\\
+1 \textbar\space 1 \textbar\space 600 \textbar\space 80\\
+1 \textbar\space 2 \textbar\space 450 \textbar\space 70\\
+2 \textbar\space 0 \textbar\space 900 \textbar\space 80\\
+2 \textbar\space 1 \textbar\space 900 \textbar\space 90\\
+2 \textbar\space 2 \textbar\space 300 \textbar\space 100\\*\\*
+\end{tabular}\\
+Plik wczytywany przez program powinien:
+\begin{enumerate}
+    \item Posiadać trzy sekcje w następującej kolejności: producenci szczepionek, apteki, połączenia producentów i aptek.
+    \item Każda sekcja powinna zawierać tytuł (może być pusty). Tytuł każdej sekcji musi rozpoczynać się od znaku ‘\#’. Po tym znaku sekcja może posiadać swoją nazwę oraz uwzględniać w nawiasie dane, które zawiera sekcja (ale nie musi – tytuł pusty).
+    \item Sekcja pierwsza - producenci szczepionek w kolejnych wierszach musi zawierać dane dotyczące kolejnych producentów. Dane każdego producenta muszą być podane w następującej kolejności: id \textbar\space nazwa \textbar\space dzienna produkcja. Środkowa dana, czyli nazwa producenta musi być oddzielona od pozostałych danych znakiem strumienia ‘\textbar’. Dana id oznacza numer identyfikacyjny producenta i musi być liczbą całkowitą. Każdy producent musi mieć unikalne id (dwóch producentów nie może mieć takiego samego id). Nazwa producenta może zawierać wszystkie znaki oprócz znaku strumienia ‘\textbar’. Dzienna produkcja jaką osiąga dany producent musi być liczbą całkowitą.
+    \item Sekcja druga - apteki w kolejnych wierszach musi zawierać dane dotyczące kolejnych aptek. Dane każdej apteki muszą być podane w następującej kolejności: id \textbar\space nazwa \textbar\space dzienne zapotrzebowanie. Środkowa dana, czyli nazwa apteki musi być oddzielona od pozostałych danych znakiem strumienia ‘\textbar’. Dana id oznacza numer identyfikacyjny apteki i musi być liczbą całkowitą. Ponadto każdy producent musi mieć unikalne id (dwóch producentów nie może mieć takiego samego id). Nazwa apteki może zawierać wszystkie znaki oprócz znaku strumienia ‘\textbar’. Dzienne zapotrzebowanie danej apteki musi być liczbą całkowitą.
+    \item Sekcja trzecia - połączenia producentów i aptek w kolejnych wierszach musi zawierać dane dotyczące umowy między danym producentem, a daną apteką. Sekcja ta musi zawierać połączenia (umowy) każdego producenta z każdą apteką. Każde takie połączenie (wiersz) musi być opisane przez dane w następującej kolejności: id producenta \textbar\space id apteki \textbar\space dzienna maksymalna liczba dostarczanych szczepionek \textbar\space koszt szczepionki [zł]. W każdym wierszu po każdej danej musi wystąpić znak strumienia ‘\textbar’ za wyjątkiem ostatniej danej w wierszu – koszt szczepionki [zł].  Dana „id producenta” oraz „id apteki” oznaczają odpowiednio numer identyfikacyjny producenta i apteki. Obie te dane muszą być liczbą całkowitą. Dzienna maksymalna liczba dostarczanych szczepionek wynikająca z umowy musi być liczbą całkowitą. Koszt szczepionki po jakiej dany producent sprzedanej szczepionkę danej aptece może być liczbą zmiennoprzecinkową. Koszt ten musi być podany w złotych [zł].
+\end{enumerate}
 
 \end{document}
