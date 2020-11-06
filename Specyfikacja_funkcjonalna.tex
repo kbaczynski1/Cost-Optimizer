@@ -103,5 +103,72 @@ Plik wyjściowy ma następująco strukturę:
     \item Ostatni wiersz ma postać: Opłaty całkowite: \emph{koszt całkowity} zł
 \end{enumerate}
 % Nieprawdiłowe korzystanie z programu
-\section{Nieprawidłowe wywołanie programu}
+\section{Nieprawidłowe użytkowanie programu}
+Zarówno plik wejściowy może zawierać błędy, jak i samo wywołanie programu może być nieprawidłowe. W takich sytuacjach program będzie informował użytkownika o błędach odpowiednimi komunimatami. Scenariusze takich sytuacji przedstawiono poniżej:
+\begin{enumerate}
+    \item Brak wartości (danej):\\\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejśćiowym w lini 10: Brak wymaganej wartości.
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Nieodpowiedni typ danej:\\\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejśćiowym w lini 11: Nieodpowiedni typ, wymagana liczba całkowita. 
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Nieprawidłowa ilość znaków strumienia:\\\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejśćiowym w lini 12: Nieprawidłowa liczba znaków strumienia, wymgane 2 znaki strumienia. 
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Brak znaku '\#':\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejściowym: Nieprawidłowa liczba sekcji lub brak znaku '\#'.
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Pwtórzenie w kolejnym wierszu tej samej apteki/producenta:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejściowym w lini 13: ID o danej wartości już wystąpiło. ID musi być wartością unikalną. 
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Pwtórzenie w kolejnym wierszu połączenia między tym samym producentem i tą samą apteką:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejściowym w lini 14: Połączenie tego producenta i tej apteki już wystąpiło. Połączenia muszą być unikalne. 
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Wprowadzenie wartości ujemnej w pliku:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Błąd w pliku wejściowym w lini 15: Wartość ujemna, wymagana wartość dodatnia. 
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Brak podanego pliku podczas uruchomienia programu:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Nieprawidłowa liczba argumentów wejściowych.
+        \end{minipage}}
+        
+    \vspace{1em}
+    \item Nieistniejący plik wejściowy:\\*\\*
+    \framebox{%
+        \begin{minipage}{0.98\linewidth}
+        Nie można znaleźć pliku "data.txt" w bieżącym katalogu.
+        \end{minipage}}
+
+    \vspace{1em}
+\end{enumerate}
+
 \end{document}
