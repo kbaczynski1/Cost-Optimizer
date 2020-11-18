@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+
+% Formatting
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage[margin=1in]{geometry}
+
+% Title content
+\title{Algorytmy i struktury danych
+\\Projekt indywidualny
+\bigbreak Specyfikacja implementacyjna}
+\author{Kacper Baczyński, 276409}
+\date{Warszawa, 2020}
+
+\begin{document}
+
+\maketitle
+
+% Matematyczne sformułowanie problemu
+\section{Matematyczne sformułowanie problemu}
+Znaleźć minimum:
+$$ y = \sum\limits_{j=1}^{m}\sum\limits_{i=1}^{n}c_{ij}x_{ij}, $$
+przy warunkach:
+$$ \sum\limits_{i=1}^{n} x_{ij} = z_{j} \quad (j = 1, 2,..., m), $$
+$$ \sum\limits_{j=1}^{m} x_{ij} \leq p_{i} \quad (i = 1, 2,..., n), $$
+$$ 0 \leq x_{ij} \leq m_{ij} \quad (i = 1, 2,..., n; \ j = 1, 2,..., m), $$
+gdzie:
+\begin{itemize}
+    \item $ c_{ij} $ - cena pojedynczej szczepionki od i-tego producenta dla j-tej apteki [zł],
+    \item $ x_{ij} $ - dzienna liczba dostarczonych szczepionek od i-tego producenta do j-tej apteki,
+    \item $ z_{j} $ - dzienne zapotrzebowanie j-tej apteki,
+    \item $ p_{i} $ - dzienna produkcja i-tego producenta,
+    \item $ m_{ij} $ - dzienna maksymalna liczba dostarczonych szczepionek od i-tego producenta do j-tej apteki,
+    \item $ p_{i}, z_{i} $ są liczbami naturalnymi (włączając 0),
+    \item $ c_{ij} $ jest nieujemną liczbą zmiennoprzecinkową.
+\end{itemize}
+
+\end{document}
