@@ -16,26 +16,92 @@
 
 \maketitle
 
-% Matematyczne sformułowanie problemu
-\section{Matematyczne sformułowanie problemu}
-Znaleźć minimum:
-$$ y = \sum\limits_{j=1}^{m}\sum\limits_{i=1}^{n}c_{ij}x_{ij}, $$
+% Sformułowanie problemu
+\section{Sformułowanie problemu}
+Przy założeniu warunku równowagi podaży i popytu (wszystkie wyprodukowane szczepionki zostaną dostarczone do aptek):
+\begin{equation}
+    \sum\limits_{i=1}^{m} a_{i} = \sum\limits_{j=1}^n b_{j},
+\end{equation}
+zadanie przyjmuje postać - znaleźć minimum:
+\begin{equation}
+    \sum\limits_{i=1}^{m}\sum\limits_{j=1}^{n}c_{ij}x_{ij},
+\end{equation}
 przy warunkach:
-$$ \sum\limits_{i=1}^{n} x_{ij} = z_{j} \quad (j = 1, 2,..., m), $$
-$$ \sum\limits_{j=1}^{m} x_{ij} \leq p_{i} \quad (i = 1, 2,..., n), $$
-$$ 0 \leq x_{ij} \leq m_{ij} \quad (i = 1, 2,..., n; \ j = 1, 2,..., m), $$
+\begin{equation}
+    \sum\limits_{j=1}^{n} x_{ij} = a_{i} \quad (i = 1, 2,..., m),
+\end{equation}
+\begin{equation}
+    \sum\limits_{i=1}^{m} x_{ij} = b_{j} \quad (j = 1, 2,..., n),
+\end{equation}
+\begin{equation}
+    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m; \ j = 1, 2,..., n),
+\end{equation}
 gdzie:
 \begin{itemize}
+    \item $ a_{i} $ - dzienna produkcja i-tego producenta,
+    \item $ b_{j} $ - dzienne zapotrzebowanie j-tej apteki,
     \item $ c_{ij} $ - cena pojedynczej szczepionki od i-tego producenta dla j-tej apteki [zł],
     \item $ x_{ij} $ - dzienna liczba dostarczonych szczepionek od i-tego producenta do j-tej apteki,
-    \item $ z_{j} $ - dzienne zapotrzebowanie j-tej apteki,
-    \item $ p_{i} $ - dzienna produkcja i-tego producenta,
-    \item $ m_{ij} $ - dzienna maksymalna liczba dostarczonych szczepionek od i-tego producenta do j-tej apteki,
-    \item $ p_{i}, z_{i} $ są nieujemnymi liczbami całkowitymi,
+    \item $ o_{ij} $ - dzienna maksymalna liczba dostarczonych szczepionek od i-tego producenta do j-tej apteki,
+    \item $ a_{i}, b_{i} $ są nieujemnymi liczbami całkowitymi,
     \item $ c_{ij} $ jest nieujemną liczbą zmiennoprzecinkową.
-\end{itemize} \hfill \break 
-Zagadnienie ma rozwiązanie dopuszczalne, gdy:
-$$ \sum\limits_{i=1}^{n} p_{i} \geq \sum\limits_{j=1}^{m} z_{j} $$
+\end{itemize}
+Funkcjonał (2) to funkcja kosztu. Warunek (3) jest ograniczeniem dla dostawców (producentów), a warunek (4) ograniczeniem dla odbiorców (aptek). Warunek (4) jest z kolei warunkiem brzegowym.
+
+Przedstawiany problem można potraktować jako tzw. zagadnienie transportowe (ZT). Jeśli zachodzi równość (1), to zagadnienie transportowe nazywa się zamkniętym.
+Jeśli warunek (1) jest niespełniony, tzn.:
+\begin{equation}
+    \sum\limits_{i=1}^{m} a_{i} < \sum\limits_{j=1}^n b_{j},
+\end{equation}
+lub
+\begin{equation}
+    \sum\limits_{i=1}^{m} a_{i} > \sum\limits_{j=1}^n b_{j},
+\end{equation}
+to zagadnienie transportowe jest otwarte. Aby rozwiązać taki problem należy najpierw sprowadzić otwarte ZT do zamkniętego.
+
+Relacja (6) mówi o tym, że niecałe zapotrzebowanie aptek zostanie zaspokojone przez producentów. Przypadek ten należy sprowadzić do zamkniętego ZT wprowadzając zmienne dodatkowe $x_{m+1,j}, j = 1,..., n$ interpretowane jako liczby szczepionek dostarczone przez fikcyjnego producenta, faktycznie zaś nie dostarczone przez nikogo. Przyjmuje się, że dla każdego $j=1,..., n$ zachodzi równość:
+\begin{equation}
+    x_{m+1,j}=b_{j}-\sum\limits_{i=1}^{m} x_{ij}.
+\end{equation}
+W rezultacie otrzymuje się zagadnienie postaci:
+\begin{equation}
+    \sum\limits_{i=1}^{m+1}\sum\limits_{j=1}^{n}c_{ij}x_{ij},
+\end{equation}
+przy warunkach:
+\begin{equation}
+    \sum\limits_{j=1}^{n} x_{ij} = a_{i} \quad (i = 1, 2,..., m+1),
+\end{equation}
+\begin{equation}
+    \sum\limits_{i=1}^{m+1} x_{ij} = b_{j} \quad (j = 1, 2,..., n),
+\end{equation}
+\begin{equation}
+    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m+1; \ j = 1, 2,..., n),
+\end{equation}
+
+Z kolei nierówność (7) oznacza, że niecały towar od producentów zostanie dostarczony do aptek. Przypadek ten należy sprowadzić do zamkniętego ZT wprowadzając zmienne dodatkowe $x_{i,n+1}, i = 1,..., m$ interpretowane jako liczby szczepionek odebrane przez fikcyjną aptekę, faktycznie zaś nie odebrane przez nikogo. Przyjmuje się, że dla każdego $i=1,..., m$ zachodzi równość:
+\begin{equation}
+    x_{i,n+1}=a_{i}-\sum\limits_{j=1}^{n} x_{ij}.
+\end{equation}
+W rezultacie otrzymuje się zagadnienie postaci:
+\begin{equation}
+    \sum\limits_{i=1}^{m}\sum\limits_{j=1}^{n+1}c_{ij}x_{ij},
+\end{equation}
+przy warunkach:
+\begin{equation}
+    \sum\limits_{j=1}^{n+1} x_{ij} = a_{i} \quad (i = 1, 2,..., m),
+\end{equation}
+\begin{equation}
+    \sum\limits_{i=1}^{m} x_{ij} = b_{j} \quad (j = 1, 2,..., n+1),
+\end{equation}
+\begin{equation}
+    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m; \ j = 1, 2,..., n+1),
+\end{equation}
+
 % Algorytm
 \section{Algorytm}
+\begin{enumerate}
+    \item 
+\end{enumerate}
+
+
 \end{document}
