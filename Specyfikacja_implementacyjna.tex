@@ -46,7 +46,7 @@ gdzie:
     \item $ a_{i}, b_{i} $ są nieujemnymi liczbami całkowitymi,
     \item $ c_{ij} $ jest nieujemną liczbą zmiennoprzecinkową.
 \end{itemize}
-Funkcjonał (2) to funkcja kosztu. Warunek (3) jest ograniczeniem dla dostawców (producentów), a warunek (4) ograniczeniem dla odbiorców (aptek). Warunek (4) jest z kolei warunkiem brzegowym.
+Funkcjonał (2) to funkcja kosztu. Warunek (3) jest ograniczeniem dla dostawców (producentów), a warunek (4) ograniczeniem dla odbiorców (aptek).
 
 Przedstawiany problem można potraktować jako tzw. zagadnienie transportowe (ZT). Jeśli zachodzi równość (1), to zagadnienie transportowe nazywa się zamkniętym.
 Jeśli warunek (1) jest niespełniony, tzn.:
@@ -75,7 +75,7 @@ przy warunkach:
     \sum\limits_{i=1}^{m+1} x_{ij} = b_{j} \quad (j = 1, 2,..., n),
 \end{equation}
 \begin{equation}
-    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m+1; \ j = 1, 2,..., n),
+    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m+1; \ j = 1, 2,..., n).
 \end{equation}
 
 Z kolei nierówność (7) oznacza, że niecały towar od producentów zostanie dostarczony do aptek. Przypadek ten należy sprowadzić do zamkniętego ZT wprowadzając zmienne dodatkowe $x_{i,n+1}, i = 1,..., m$ interpretowane jako liczby szczepionek odebrane przez fikcyjną aptekę, faktycznie zaś nie odebrane przez nikogo. Przyjmuje się, że dla każdego $i=1,..., m$ zachodzi równość:
@@ -94,14 +94,47 @@ przy warunkach:
     \sum\limits_{i=1}^{m} x_{ij} = b_{j} \quad (j = 1, 2,..., n+1),
 \end{equation}
 \begin{equation}
-    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m; \ j = 1, 2,..., n+1),
+    0 \leq x_{ij} \leq o_{ij} \quad (i = 1, 2,..., m; \ j = 1, 2,..., n+1).
 \end{equation}
 
 % Algorytm
 \section{Algorytm}
-\begin{enumerate}
-    \item 
-\end{enumerate}
+\begin{description}
+    \item[Krok 0.] Sprawdź relację między $\sum\limits_{i=1}^{m} a_{i}$ a $\sum\limits_{j=1}^n b_{j}$. Jeśli $\sum\limits_{i=1}^{m} a_{i} < \sum\limits_{j=1}^n b_{j}$ przejdź do kroku 0.1. Jeśli warunek ten nie jest spełniony, a spełniony jest $\sum\limits_{i=1}^{m} a_{i} > \sum\limits_{j=1}^n b_{j}$, to przejdź do kroku 0.2. Jeśli oba warunki są niespełnione, to przejdź do kroku 1.
+    \begin{description}
+        \item[Krok 0.1.] Wprowadź dodatkowego, fikcyjnego producenta z dzienną produkcją $a_{m+1}=\sum\limits_{j=1}^{n} b_{j}-\sum\limits_{i=1}^{m} a_{i}$ i cenami $c_{m+1,j} = 0, j=1,...,n$. Następnie zaktualizuj liczbę producentów $m=m+1$. Zagadnienie transportowe otwarte zostało przekształcone do zamkniętego. Przejdź do kroku 1.
+        \item[Krok 0.2.] Wprowadź dodatkową, fikcyjną aptekę z dziennym zapotrzebowaniem $b_{n+1}=\sum\limits_{i=1}^{m} a_{i}-\sum\limits_{j=1}^n b_{j}$ i cenami $c_{i,n+1} = 0, i=1,...,m$. Następnie zaktualizuj liczbę aptek $n=n+1$. Zagadnienie transportowe otwarte zostało przekształcone do zamkniętego. Przejdź do kroku 1.
+    \end{description}
+    \item[Krok 1.] Wyznacz początkowe rozwiązanie bazowe poprzez budowę macierzy dostaw $X=[x_{ij}]$:
+    \begin{description}
+        \item[Krok 1.1.] Wybierz komórkę o najmniejszych indeksach i oraz j (północno-zachdonią)
+        \item[Krok 1.2.] Wpisz do tej komórki obliczoną wartość $x_{ij}=min\{a_{i},b_{j},o_{ij}\}$
+        \item[Krok 1.3.] Zaktualizuj po tej operacji podaż $a_{i}=a_{i}-x_{ij}$ oraz popyt $b_{j}=b_{j}-x_{ij}$
+        \item[Krok 1.4.] Jeśli i-temu producentowi został towar do rozdysponowania, to przesuń się w prawo na komórkę i wykonaj kroki 1.2-1.4. Jeśli cały towar i-tego producenta został rozdzielony aptekom, to przesuń się w dół na komórkę i wykonaj kroki 1.2-1.4.
+        \item[Krok 1.5] Oblicz koszt całkowity $\sum\limits_{i=1}^{m}\sum\limits_{j=1}^{n}c_{ij}x_{ij}$
+    \end{description}
+    \item[Krok 2.] Wyznacz tzw. liczby indeksowe $r_i$ dla wierszy i $k_j$ dla kolumn tak, aby dla każdej obsadzonej komórki $(i,j)$ w $X$ spełnione było równanie:$$r_{i} + k_{j} = c_{ij} $$
+    gdzie $c_{ij}$ to koszt odpowiadający tej komórce.
+    \item[Krok 3.] W celu znalezienia liczb $r_i$ i $k_j$ przyjmij $r_{1}=0$ i z równania z kroku 2 oblicz pozostałe liczby ideksowe.
+    \item[Krok 4.] Dla każdej nieobsadzonej komórki wyznacz jej potencjał ze wzoru: $$e_{ij}=c_{ij}-r_{i}-k_{j}$$
+    \item[Krok 5.] Sprawdź czy wszystkie potecjały $e_{ij}$ są nieujemne. Jeśli tak, to rozwiązanie jest optymalne $\to$ \underline{Koniec algorytmu}!
+    \item[Krok 6.] Wyznacz nieobsadzoną komórkę o największym co do wartości bezwględnej ujemnym potencjale
+    \item[Krok 7.] Skontruuj ścieżkę dla tej komórki:
+    \begin{description}
+        \item[Krok 7.1.] W komórce tej postaw znak (+) i przypisz myślowo jedną jednostkę
+        \item[Krok 7.2.] W celu zachowania warunków zmniejsz o jedną jendostkę w tym samym wierszu lub w tej samej kolumnie komórkę obsadzoną, poprzez postawienie w niej znaku (-)
+        \item[Krok 7.3.] Kontynuuj działanie stawiając na przemian znaki (+) i (-), aż ścieżka zamknie się w komórce wyjściowej.
+        \item[Krok 7.4.] Oblicz bilans kosztów na stworzonej ścieżce. Bilas to $\sum (znak)c_{ij}$ dla każdej komórki ze ścieżki (każdej ze znakiem), a o znaku z jakim dodawana będzie cena odpowiadająca danej komórce decyduje znak nadany tej komórce podczas konstruowanie ścieżki. Jeśli bilans jest ujemny, to można polepszyć rozwiązanie - idź do kroku 8. Jeśli bilans jest dodatni, to przealokowanie środków spowoduje wzrost kosztów. W tym wypadku znajdź alternatywną ścieżkę - wróć do kroku 7 konstrując inną ścieżkę dla tej samej komórki wyjściowej. Jeśli nie ma alternatywnych ścieżek o ujemnym bilansie, to nie da się polepszyć rozwiązania. Ostatnie rozwiązaniem jest rozwiązaniem końcowym $\to$ \underline{Koniec algorytmu}!
+    \end{description}
+    \item[Krok 8.] Spośród komórek ze znakiem (-) wybieramy najmniejszą ulokową tam wartość bezwzględną
+    \item[Krok 9.] O tą wartość w zależności od znaku (+) lub (-) zwiększamy lub zmniejszamy alokacje komórek na ścieżce. Z tak zmodyfikowaną macierzą $X$ (nowym rozwiązaniem bazowym) wracamy do kroku 2.
+\end{description}
 
+% Testowanie
+\section{Testowanie}
+\begin{itemize}
+    \item Testowany będzie plik wejściowy pod kątem niedpouszczlanych wartości ujemnych, braku tytułów, nieodpowiedniego typu danej (np. zmiennoprzecinkowa zamiast całkowitej), ilości znaków strumienia, powtórzenia ID, powtórzenia połączenia między producentem a apteką.
+    \item Testowany będzie również algorytm pod względem poprawności działania i wydajności.
+\end{itemize}
 
 \end{document}
