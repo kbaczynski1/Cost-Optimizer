@@ -1,23 +1,9 @@
-import java.util.ArrayList;
+public class Manufacturer implements Comparable<Manufacturer> {
+    private final int id;
+    private final String name;
+    private final int dailyProduction;
 
-public class Manufacturer {
-    private int id;
-    private String name;
-    private int dailyProduction;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDailyProduction(int dailyProduction) {
-        this.dailyProduction = dailyProduction;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -44,10 +30,33 @@ public class Manufacturer {
         this.dailyProduction = dailyProduction;
     }
 
-    public Manufacturer(ArrayList<String> param) {
-        this.id = Integer.parseInt(param.get(0).trim());
-        this.name = param.get(1).trim();
-        this.dailyProduction = Integer.parseInt(param.get(2).trim());
+    public Manufacturer(String[] param) {
+        try {
+            this.id = Integer.parseInt(param[0].trim());
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Nieprawidłowy typ danych w pliku wejściowym: \""
+                    + param[0].trim() + "\". Oczekiwana liczba typu 'int'.");
+        }
+
+        this.name = param[1].trim();
+
+        try {
+            this.dailyProduction = Integer.parseInt(param[2].trim());
+            if (dailyProduction < 0) {
+                throw new IllegalArgumentException("Niedopuszczalna wartość ujemna dziennej produkcji producenta" +
+                        " w pliku wejśćiowym: \"" + dailyProduction + "\".");
+            }
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Nieprawidłowy typ danych w pliku wejściowym: \""
+                    + param[2].trim() + "\". Oczekiwana liczba typu 'int'.");
+
+        }
+
+    }
+
+    @Override
+    public int compareTo(Manufacturer o) {
+        return this.getId().compareTo(o.getId());
     }
 
 }

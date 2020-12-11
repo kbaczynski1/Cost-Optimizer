@@ -1,23 +1,9 @@
-import java.util.ArrayList;
+public class Pharmacy implements Comparable<Pharmacy> {
+    private final int id;
+    private final String name;
+    private final int dailyDemand;
 
-public class Pharmacy {
-    private int id;
-    private String name;
-    private int dailyDemand;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDailyDemand(int dailyDemand) {
-        this.dailyDemand = dailyDemand;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -44,10 +30,32 @@ public class Pharmacy {
         this.dailyDemand = dailyDemand;
     }
 
-    public Pharmacy(ArrayList<String> param) {
-        this.id = Integer.parseInt(param.get(0).trim());
-        this.name = param.get(1).trim();
-        this.dailyDemand = Integer.parseInt(param.get(2).trim());
+    public Pharmacy(String[] param) {
+        try {
+            this.id = Integer.parseInt(param[0].trim());
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Nieprawidłowy typ danych w pliku wejściowym: \""
+                    + param[0].trim() + "\". Oczekiwana liczba typu 'int'.");
+        }
+
+        this.name = param[1].trim();
+
+        try {
+            this.dailyDemand = Integer.parseInt(param[2].trim());
+            if (dailyDemand < 0) {
+                throw new IllegalArgumentException("Niedopuszczalna wartość ujemna dziennego zapotrzebowania" +
+                        " apteki w pliku wejśćiowym: \"" + dailyDemand + "\".");
+            }
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Nieprawidłowy typ danych w pliku wejściowym: \""
+                    + param[2].trim() + "\". Oczekiwana liczba typu 'int'.");
+        }
+
+    }
+
+    @Override
+    public int compareTo(Pharmacy o) {
+        return this.getId().compareTo(o.getId());
     }
 
 }
